@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gokul Gowda | Computer Science and Engineering Student</title>
+  <meta name="description" content="Portfolio of Gokul Gowda, a Computer Science and Engineering student at Reva University, documenting VS Code, Git and GitHub, GitLens, Live Share and LeetCode practice activities.">
+  <meta name="theme-color" content="#F4F6F9">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- Tokens ---------- */
+    :root {
+      --paper: #F4F6F9;
+      --white: #FFFFFF;
+      --ink: #0E1A2B;
+      --muted: #55627A;
+      --line: #D9DFE8;
+      --accent: #1F4FFF;
+      --accent-dark: #1741D8;
+      --amber: #F5B544;
+      --term-text: #D7E0F0;
+      --radius: 10px;
+      --font-display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+      --font-body: 'IBM Plex Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Consolas', 'Courier New', monospace;
+    }
+
+    /* ---------- Base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--paper);
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.12; letter-spacing: -0.02em; margin: 0; }
+    h1 { font-size: clamp(2.9rem, 8vw, 5.25rem); font-weight: 700; }
+    h2 { font-size: clamp(1.9rem, 4.2vw, 2.75rem); font-weight: 700; }
+    h3 { font-size: clamp(1.3rem, 2.6vw, 1.65rem); font-weight: 700; }
+    h4 { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
+    p { margin: 0 0 1em; max-width: 64ch; }
+    a { color: var(--accent); text-underline-offset: 3px; }
+    a:hover { color: var(--accent-dark); }
+    ul { margin: 0; padding: 0; }
+    code { font-family: var(--font-mono); font-size: 0.9em; background: rgba(14, 26, 43, 0.07); padding: 0.1em 0.35em; border-radius: 4px; }
+
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+    .container { width: min(1080px, 100% - 40px); margin-inline: auto; }
+    .skip-link {
+      position: absolute; left: 16px; top: -60px; z-index: 100;
+      background: var(--ink); color: var(--white); padding: 10px 16px; border-radius: 6px; text-decoration: none;
+    }
+    .skip-link:focus { top: 12px; color: var(--white); }
+
+    /* ---------- Header ---------- */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(244, 246, 249, 0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; min-height: 64px; gap: 16px; }
+    .brand { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; color: var(--ink); text-decoration: none; letter-spacing: -0.02em; }
+    .brand:hover { color: var(--accent); }
+    .nav-list { display: flex; gap: 4px; list-style: none; }
+    .nav-list a {
+      display: block; padding: 8px 12px; border-radius: 6px;
+      color: var(--muted); text-decoration: none; font-size: 0.95rem; font-weight: 500;
+    }
+    .nav-list a:hover { color: var(--ink); background: rgba(14, 26, 43, 0.05); }
+    .nav-list a[aria-current="true"] { color: var(--accent); background: rgba(31, 79, 255, 0.08); }
+    .nav-toggle {
+      display: none; align-items: center; gap: 8px;
+      background: var(--white); color: var(--ink); border: 1px solid var(--line);
+      border-radius: 8px; padding: 8px 14px; font: inherit; font-weight: 500; cursor: pointer;
+    }
+
+    /* ---------- Buttons ---------- */
+    .btn {
+      display: inline-block; padding: 12px 22px; border-radius: 8px;
+      font-weight: 600; font-size: 1rem; text-decoration: none;
+      border: 1.5px solid var(--ink); color: var(--ink); background: transparent;
+      transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+    }
+    .btn:hover { background: var(--ink); color: var(--white); }
+    .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--white); }
+    .btn-primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); color: var(--white); }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    /* ---------- Sections ---------- */
+    .section { padding: 88px 0; border-top: 1px solid var(--line); }
+    .section.is-white { background: var(--white); }
+    .section-head { margin-bottom: 44px; }
+    .section-head p { color: var(--muted); margin: 14px 0 0; font-size: 1.1rem; }
+
+    /* ---------- Hero ---------- */
+    .hero { padding: 72px 0 88px; border-top: 0; }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; }
+    .hero h1 { margin-bottom: 20px; }
+    .hero-role { font-family: var(--font-display); font-size: clamp(1.15rem, 2.4vw, 1.5rem); font-weight: 500; color: var(--muted); margin: 0 0 22px; letter-spacing: -0.01em; }
+    .hero-text { max-width: 54ch; margin-bottom: 32px; }
+
+    .terminal {
+      background: var(--ink); color: var(--term-text);
+      border-radius: 14px; padding: 22px 22px 24px;
+      font-family: var(--font-mono); font-size: 0.9rem; line-height: 1.75;
+      box-shadow: 0 24px 48px -24px rgba(14, 26, 43, 0.55);
+    }
+    .terminal-title { color: #8A97B0; font-size: 0.8rem; margin-bottom: 14px; }
+    .term-line { display: block; white-space: pre-wrap; opacity: 0; transform: translateY(4px); animation: term-in 0.35s ease forwards; animation-delay: calc(0.35s + var(--i) * 0.5s); }
+    .term-line .prompt { color: var(--amber); }
+    .term-line .node { color: var(--accent); filter: brightness(1.7); }
+    .term-line .head { color: var(--amber); }
+    .term-line .dim { color: #8A97B0; }
+    @keyframes term-in { to { opacity: 1; transform: none; } }
+
+    /* ---------- About ---------- */
+    .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 56px; align-items: start; }
+    .facts { margin: 0; border-top: 1px solid var(--line); }
+    .facts div { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .facts dt { color: var(--muted); font-weight: 500; }
+    .facts dd { margin: 0; font-weight: 500; }
+
+    /* ---------- Education ---------- */
+    .edu {
+      border: 1px solid var(--line); border-left: 4px solid var(--accent);
+      background: var(--paper); border-radius: var(--radius); padding: 28px 30px; max-width: 720px;
+    }
+    .edu h3 { margin-bottom: 6px; }
+    .edu .school { font-size: 1.15rem; font-weight: 600; margin: 0 0 14px; }
+    .edu p:last-child { margin-bottom: 0; color: var(--muted); }
+
+    /* ---------- Skills ---------- */
+    .skill-row { display: grid; grid-template-columns: 240px 1fr; gap: 24px; padding: 22px 0; border-top: 1px solid var(--line); align-items: center; }
+    .skill-row:last-child { border-bottom: 1px solid var(--line); }
+    .skill-row h3 { font-size: 1.15rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; }
+    .chips li { padding: 6px 16px; border: 1.5px solid var(--ink); border-radius: 999px; font-weight: 500; font-size: 0.98rem; background: var(--white); }
+
+    /* ---------- Activities (git-graph rail) ---------- */
+    .activity { position: relative; padding: 0 0 64px 56px; }
+    .activity:last-child { padding-bottom: 0; }
+    .activity::before { content: ""; position: absolute; left: 13px; top: 30px; bottom: 0; width: 2px; background: var(--line); }
+    .activity:last-child::before { display: none; }
+    .activity::after {
+      content: ""; position: absolute; left: 0; top: 6px; width: 28px; height: 28px;
+      border-radius: 50%; background: var(--paper); border: 3px solid var(--accent);
+    }
+    .activity-label { font-family: var(--font-mono); font-size: 0.9rem; color: var(--accent); font-weight: 500; margin: 0 0 6px; }
+    .activity h3 { margin-bottom: 14px; }
+    .activity-summary { color: var(--muted); font-size: 1.08rem; margin-bottom: 28px; }
+    .activity-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 28px; }
+    .activity-cols h4 { margin-bottom: 12px; }
+    .bullets { list-style: none; }
+    .bullets li { position: relative; padding-left: 22px; margin-bottom: 10px; }
+    .bullets li::before { content: ""; position: absolute; left: 0; top: 0.7em; width: 8px; height: 2px; background: var(--accent); }
+
+    .code {
+      background: var(--ink); color: var(--term-text);
+      border-radius: var(--radius); padding: 18px 20px; margin: 0 0 28px;
+      font-family: var(--font-mono); font-size: 0.88rem; line-height: 1.8; overflow-x: auto;
+    }
+    .code .c { color: #8A97B0; }
+    .code-caption { font-weight: 600; margin: 0 0 10px; }
+
+    .proof {
+      border: 1.5px dashed #9AA6BC; border-radius: var(--radius);
+      padding: 18px 20px; background: rgba(255, 255, 255, 0.6);
+    }
+    .proof h4 { margin-bottom: 6px; }
+    .proof p { margin: 0 0 10px; color: var(--muted); font-size: 0.98rem; }
+    .proof p:last-child { margin-bottom: 0; }
+
+    /* ---------- Learning journey ---------- */
+    .journey { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; counter-reset: step; margin-bottom: 40px; }
+    .journey li { position: relative; padding: 28px 24px 0 0; border-top: 3px solid var(--ink); counter-increment: step; }
+    .journey li::before {
+      content: ""; position: absolute; top: -9px; left: 0; width: 15px; height: 15px;
+      background: var(--accent); border: 3px solid var(--white); border-radius: 50%; box-shadow: 0 0 0 1.5px var(--ink);
+    }
+    .journey h3 { font-size: 1.2rem; margin-bottom: 8px; }
+    .journey p { color: var(--muted); font-size: 0.98rem; margin: 0; }
+    .reflection { font-size: 1.15rem; max-width: 68ch; }
+
+    /* ---------- Goals ---------- */
+    .goals { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 56px; }
+    .goal { padding: 24px 0; border-top: 1px solid var(--line); }
+    .goal h3 { font-size: 1.25rem; margin-bottom: 8px; }
+    .goal p { color: var(--muted); margin: 0; }
+
+    /* ---------- Projects ---------- */
+    .project-list { list-style: none; border-top: 1px solid var(--ink); }
+    .project { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; padding: 26px 0; border-bottom: 1px solid var(--line); }
+    .project h3 { font-size: 1.3rem; margin-bottom: 6px; }
+    .project p { margin: 0; color: var(--muted); }
+    .project-empty { margin-top: 28px; color: var(--muted); }
+
+    /* ---------- Contact ---------- */
+    .contact-list { list-style: none; border-top: 1px solid var(--ink); max-width: 720px; }
+    .contact-list li { display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+    .contact-list span { color: var(--muted); font-weight: 500; }
+    .contact-list a { font-weight: 500; word-break: break-word; }
+
+    /* ---------- Footer ---------- */
+    .site-footer { padding: 32px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.95rem; }
+    .site-footer p { margin: 0 0 4px; max-width: none; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 980px) {
+      .nav-toggle { display: inline-flex; }
+      .site-nav { display: none; position: absolute; left: 0; right: 0; top: 100%; background: var(--paper); border-bottom: 1px solid var(--line); padding: 10px 20px 16px; }
+      .site-nav.is-open { display: block; }
+      .nav-list { flex-direction: column; }
+      .nav-list a { padding: 12px 10px; font-size: 1rem; }
+      .journey { grid-template-columns: repeat(2, 1fr); row-gap: 40px; }
+    }
+    @media (max-width: 820px) {
+      .section { padding: 64px 0; }
+      .hero { padding: 48px 0 64px; }
+      .hero-grid, .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .skill-row { grid-template-columns: 1fr; gap: 12px; }
+      .activity-cols { grid-template-columns: 1fr; gap: 24px; }
+      .goals { grid-template-columns: 1fr; }
+      .project { grid-template-columns: 1fr; gap: 14px; }
+      .project .btn { justify-self: start; }
+    }
+    @media (max-width: 560px) {
+      body { font-size: 1rem; }
+      .activity { padding-left: 44px; }
+      .activity::after { width: 24px; height: 24px; }
+      .activity::before { left: 11px; top: 26px; }
+      .journey { grid-template-columns: 1fr; }
+      .facts div, .contact-list li { grid-template-columns: 1fr; gap: 2px; }
+      .terminal { font-size: 0.8rem; padding: 18px; }
+      .edu { padding: 22px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .term-line { opacity: 1; transform: none; animation: none; }
+      .btn { transition: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#home">Gokul Gowda</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#activities">Activities</a></li>
+          <li><a href="#journey">Journey</a></li>
+          <li><a href="#goals">Goals</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- 1. HERO -->
+    <section class="section hero" id="home" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div>
+          <h1 id="hero-title">Gokul Gowda</h1>
+          <p class="hero-role">Computer Science and Engineering student at Reva University</p>
+          <p class="hero-text">I write code in C, C++, Java and Python, practise problem solving on LeetCode, and use Git and GitHub to keep my work organised. This portfolio documents four hands-on activities and what I learned from each.</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="#activities">See the four activities</a>
+            <a class="btn" href="#" data-link="github" target="_blank" rel="noopener">GitHub profile</a>
+          </div>
+        </div>
+
+        <div class="terminal" role="img" aria-label="A git log listing the four portfolio activities in order, from VS Code setup to the LeetCode practice repository">
+          <div class="terminal-title" aria-hidden="true">portfolio</div>
+          <span class="term-line" style="--i:0" aria-hidden="true"><span class="prompt">$</span> git log --graph --oneline</span>
+          <span class="term-line" style="--i:1" aria-hidden="true"><span class="node">*</span> Activity 4: LeetCode practice repository <span class="head">(HEAD -> main)</span></span>
+          <span class="term-line" style="--i:2" aria-hidden="true"><span class="node">*</span> Activity 3: GitLens and Live Share</span>
+          <span class="term-line" style="--i:3" aria-hidden="true"><span class="node">*</span> Activity 2: Git and GitHub setup</span>
+          <span class="term-line" style="--i:4" aria-hidden="true"><span class="node">*</span> Activity 1: VS Code setup</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. ABOUT -->
+    <section class="section is-white" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="about-title">About me</h2>
+        </div>
+        <div class="about-grid">
+          <div>
+            <p>I'm Gokul Gowda, a Bachelor of Engineering student in Computer Science and Engineering at Reva University.</p>
+            <p>This website is part of the AI-Assisted Portfolio Blog activity. It records four practical activities: setting up VS Code, setting up Git and GitHub, using GitLens and Live Share, and building a LeetCode practice repository. For each one, I explain what it covers and what I learned.</p>
+            <p>The site was built with the help of AI as part of that activity, and published on GitHub Pages.</p>
+          </div>
+          <dl class="facts">
+            <div><dt>Name</dt><dd>Gokul Gowda</dd></div>
+            <div><dt>Degree</dt><dd>B.E. Computer Science and Engineering</dd></div>
+            <div><dt>University</dt><dd>Reva University</dd></div>
+            <div><dt>Languages</dt><dd>C, C++, Java, Python</dd></div>
+            <div><dt>Tools</dt><dd>Git, GitHub</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. EDUCATION -->
+    <section class="section" id="education" aria-labelledby="education-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="education-title">Education</h2>
+        </div>
+        <!-- To add more detail (years of study, etc.), add a new <p> inside this block. -->
+        <article class="edu">
+          <h3>Bachelor of Engineering in Computer Science and Engineering</h3>
+          <p class="school">Reva University</p>
+          <p>Alongside my coursework, I am building practical developer skills through the four activities in this portfolio.</p>
+          <p><a href="#activities">Jump to the activities</a></p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 4. TECHNICAL SKILLS -->
+    <section class="section is-white" id="skills" aria-labelledby="skills-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="skills-title">Technical skills</h2>
+        </div>
+        <div>
+          <div class="skill-row">
+            <h3>Programming languages</h3>
+            <ul class="chips"><li>C</li><li>C++</li><li>Java</li><li>Python</li></ul>
+          </div>
+          <div class="skill-row">
+            <h3>Version control</h3>
+            <ul class="chips"><li>Git</li><li>GitHub</li></ul>
+          </div>
+          <div class="skill-row">
+            <h3>Problem solving</h3>
+            <ul class="chips"><li>LeetCode</li><li>Problem solving</li></ul>
+          </div>
+          <div class="skill-row">
+            <h3>Web</h3>
+            <ul class="chips"><li>Basic web development</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5-8. ACTIVITIES -->
+    <section class="section" id="activities" aria-labelledby="activities-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="activities-title">The four activities</h2>
+          <p>Each activity builds on the one before it. Together they make up a complete developer workflow.</p>
+        </div>
+
+        <!-- Activity 1 -->
+        <article class="activity" id="activity-1" aria-labelledby="a1-title">
+          <p class="activity-label">Activity 1</p>
+          <h3 id="a1-title">VS Code setup</h3>
+          <p class="activity-summary">Setting up Visual Studio Code as my main place to write, run and manage code.</p>
+          <div class="activity-cols">
+            <div>
+              <h4>What it covers</h4>
+              <ul class="bullets">
+                <li>Installing Visual Studio Code</li>
+                <li>Installing extensions for the languages I use</li>
+                <li>Using the integrated terminal</li>
+                <li>Adjusting editor settings to work comfortably</li>
+              </ul>
+            </div>
+            <div>
+              <h4>What I learned</h4>
+              <ul class="bullets">
+                <li>A code editor can be shaped to fit the way I work</li>
+                <li>Extensions add language support and useful tools</li>
+                <li>Writing and running code in one window saves time</li>
+              </ul>
+            </div>
+          </div>
+          <div class="proof">
+            <h4>Proof of work</h4>
+            <p>Add a screenshot of your VS Code setup here. Save the image in an <code>images</code> folder, then replace this box with <code>&lt;img src="images/vscode.png" alt="VS Code setup"&gt;</code>.</p>
+          </div>
+        </article>
+
+        <!-- Activity 2 -->
+        <article class="activity" id="activity-2" aria-labelledby="a2-title">
+          <p class="activity-label">Activity 2</p>
+          <h3 id="a2-title">Git and GitHub setup</h3>
+          <p class="activity-summary">Installing Git, connecting it to GitHub, and publishing a repository for the first time.</p>
+          <div class="activity-cols">
+            <div>
+              <h4>What it covers</h4>
+              <ul class="bullets">
+                <li>Installing and configuring Git</li>
+                <li>Creating a GitHub account and repository</li>
+                <li>Committing changes locally</li>
+                <li>Pushing a local repository to GitHub</li>
+              </ul>
+            </div>
+            <div>
+              <h4>What I learned</h4>
+              <ul class="bullets">
+                <li>Version control keeps a history of every change</li>
+                <li>Local and remote repositories work together</li>
+                <li>GitHub stores code online and makes it easy to share</li>
+              </ul>
+            </div>
+          </div>
+          <p class="code-caption">Core Git workflow</p>
+<pre class="code"><span class="c"># one-time setup</span>
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+
+<span class="c"># create, commit, publish</span>
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin &lt;repository-url&gt;
+git push -u origin main</pre>
+          <div class="proof">
+            <h4>Proof of work</h4>
+            <p>Add a screenshot of your first commit or GitHub repository here.</p>
+            <p><a href="#" data-link="github" target="_blank" rel="noopener">View my GitHub profile</a></p>
+          </div>
+        </article>
+
+        <!-- Activity 3 -->
+        <article class="activity" id="activity-3" aria-labelledby="a3-title">
+          <p class="activity-label">Activity 3</p>
+          <h3 id="a3-title">GitLens and Live Share</h3>
+          <p class="activity-summary">Two VS Code extensions: one for understanding code history, one for coding together in real time.</p>
+          <div class="activity-cols">
+            <div>
+              <h4>What it covers</h4>
+              <ul class="bullets">
+                <li>Installing GitLens and viewing who changed each line and when</li>
+                <li>Browsing commit history from inside the editor</li>
+                <li>Installing Live Share and starting a shared session</li>
+                <li>Editing the same project with another person at the same time</li>
+              </ul>
+            </div>
+            <div>
+              <h4>What I learned</h4>
+              <ul class="bullets">
+                <li>Commit history explains why code looks the way it does</li>
+                <li>GitLens makes Git information visible while I work</li>
+                <li>Live Share supports pair programming and team collaboration</li>
+              </ul>
+            </div>
+          </div>
+          <div class="proof">
+            <h4>Proof of work</h4>
+            <p>Add a screenshot of GitLens or a Live Share session here.</p>
+          </div>
+        </article>
+
+        <!-- Activity 4 -->
+        <article class="activity" id="activity-4" aria-labelledby="a4-title">
+          <p class="activity-label">Activity 4</p>
+          <h3 id="a4-title">LeetCode practice repository</h3>
+          <p class="activity-summary">A GitHub repository that stores my LeetCode solutions, so my practice is organised and visible.</p>
+          <div class="activity-cols">
+            <div>
+              <h4>What it covers</h4>
+              <ul class="bullets">
+                <li>Creating a dedicated repository for practice problems</li>
+                <li>Saving each solution as a file and committing it</li>
+                <li>Writing a README that explains the repository</li>
+                <li>Using Git and GitHub for something I do regularly</li>
+              </ul>
+            </div>
+            <div>
+              <h4>What I learned</h4>
+              <ul class="bullets">
+                <li>Regular practice builds problem-solving skill</li>
+                <li>Small, frequent commits create a clear record of progress</li>
+                <li>Clear structure and notes make old solutions easy to revisit</li>
+              </ul>
+            </div>
+          </div>
+          <div class="proof">
+            <h4>Proof of work</h4>
+            <p>Add a screenshot of your repository here.</p>
+            <p><a href="#" data-link="leetcodeRepo" target="_blank" rel="noopener">Open the LeetCode practice repository</a></p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 9. LEARNING JOURNEY -->
+    <section class="section is-white" id="journey" aria-labelledby="journey-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="journey-title">Learning journey</h2>
+          <p>How the four activities connect, in the order I completed them.</p>
+        </div>
+        <ol class="journey">
+          <li>
+            <h3>Set up the editor</h3>
+            <p>VS Code became my workspace for writing and running code.</p>
+          </li>
+          <li>
+            <h3>Track the work</h3>
+            <p>Git and GitHub gave my code a history and a home online.</p>
+          </li>
+          <li>
+            <h3>Understand and share</h3>
+            <p>GitLens and Live Share helped me read history and code with others.</p>
+          </li>
+          <li>
+            <h3>Practise and publish</h3>
+            <p>The LeetCode repository put every earlier skill to use.</p>
+          </li>
+        </ol>
+        <p class="reflection">Together, these activities form one workflow: write code in an editor, track it with Git, understand and share it with GitLens and Live Share, and publish practice work on GitHub.</p>
+      </div>
+    </section>
+
+    <!-- 10. CAREER GOALS -->
+    <!-- NOTE: These goals are general. Edit them so they match your own plans. -->
+    <section class="section" id="goals" aria-labelledby="goals-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="goals-title">Career goals</h2>
+        </div>
+        <div class="goals">
+          <div class="goal">
+            <h3>Strengthen problem solving</h3>
+            <p>Keep practising on LeetCode to get better at breaking problems down and writing clear solutions.</p>
+          </div>
+          <div class="goal">
+            <h3>Grow across languages</h3>
+            <p>Deepen my skills in C, C++, Java and Python, and learn when each one is the right tool.</p>
+          </div>
+          <div class="goal">
+            <h3>Build and publish projects</h3>
+            <p>Turn what I learn into projects and share them on GitHub with clear documentation.</p>
+          </div>
+          <div class="goal">
+            <h3>Work well in teams</h3>
+            <p>Use Git, GitHub and collaboration tools to contribute to shared codebases.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. GITHUB / PROJECTS -->
+    <section class="section is-white" id="projects" aria-labelledby="projects-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="projects-title">GitHub and projects</h2>
+        </div>
+        <ul class="project-list">
+          <li class="project">
+            <div>
+              <h3>GitHub profile</h3>
+              <p>All my repositories in one place.</p>
+            </div>
+            <a class="btn" href="#" data-link="github" target="_blank" rel="noopener">Visit GitHub</a>
+          </li>
+          <li class="project">
+            <div>
+              <h3>LeetCode practice repository</h3>
+              <p>My LeetCode solutions, organised and version controlled (Activity 4).</p>
+            </div>
+            <a class="btn" href="#" data-link="leetcodeRepo" target="_blank" rel="noopener">View repository</a>
+          </li>
+          <li class="project">
+            <div>
+              <h3>This portfolio website</h3>
+              <p>Built with HTML and CSS, and published with GitHub Pages.</p>
+            </div>
+            <a class="btn" href="#" data-link="portfolioRepo" target="_blank" rel="noopener">View source</a>
+          </li>
+        </ul>
+        <p class="project-empty">More projects will appear here as I build and publish them.</p>
+      </div>
+    </section>
+
+    <!-- 12. CONTACT -->
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="contact-title">Contact</h2>
+          <p>Questions, feedback or collaboration ideas are welcome.</p>
+        </div>
+        <ul class="contact-list">
+          <li><span>Email</span><a href="#" data-link="email" data-show>your-email@example.com</a></li>
+          <li><span>GitHub</span><a href="#" data-link="github" data-show target="_blank" rel="noopener">github.com/YOUR-USERNAME</a></li>
+          <li><span>LinkedIn</span><a href="#" data-link="linkedin" data-show target="_blank" rel="noopener">linkedin.com/in/YOUR-PROFILE</a></li>
+          <li><span>LeetCode</span><a href="#" data-link="leetcode" data-show target="_blank" rel="noopener">leetcode.com/u/YOUR-USERNAME</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year">2026</span> Gokul Gowda. Computer Science and Engineering, Reva University.</p>
+      <p>Built for the AI-Assisted Portfolio Blog activity.</p>
+    </div>
+  </footer>
+
+  <script>
+    /* ====================================================
+       EDIT YOUR LINKS HERE. Replace each placeholder, save,
+       and every link on the page updates automatically.
+       ==================================================== */
+    const LINKS = {
+      github:        "https://github.com/YOUR-USERNAME",
+      leetcodeRepo:  "https://github.com/YOUR-USERNAME/leetcode-practice",
+      portfolioRepo: "https://github.com/YOUR-USERNAME/YOUR-USERNAME.github.io",
+      linkedin:      "https://www.linkedin.com/in/YOUR-PROFILE",
+      leetcode:      "https://leetcode.com/u/YOUR-USERNAME",
+      email:         "your-email@example.com"
+    };
+
+    /* ---------- Fill in links ---------- */
+    document.querySelectorAll("[data-link]").forEach(function (el) {
+      var key = el.getAttribute("data-link");
+      var value = LINKS[key];
+      if (!value) return;
+      if (key === "email") {
+        el.href = "mailto:" + value;
+        if (el.hasAttribute("data-show")) el.textContent = value;
+      } else {
+        el.href = value;
+        if (el.hasAttribute("data-show")) el.textContent = value.replace(/^https?:\/\/(www\.)?/, "");
+      }
+    });
+
+    /* ---------- Footer year ---------- */
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    /* ---------- Mobile menu ---------- */
+    var toggle = document.querySelector(".nav-toggle");
+    var nav = document.getElementById("site-nav");
+    function setMenu(open) {
+      nav.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.textContent = open ? "Close" : "Menu";
+    }
+    toggle.addEventListener("click", function () {
+      setMenu(toggle.getAttribute("aria-expanded") !== "true");
+    });
+    nav.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () { setMenu(false); });
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") setMenu(false);
+    });
+
+    /* ---------- Highlight current section in nav ---------- */
+    var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav-list a"));
+    if ("IntersectionObserver" in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          navLinks.forEach(function (link) {
+            var match = link.getAttribute("href") === "#" + entry.target.id;
+            if (match) link.setAttribute("aria-current", "true");
+            else link.removeAttribute("aria-current");
+          });
+        });
+      }, { rootMargin: "-45% 0px -50% 0px" });
+      document.querySelectorAll("main section[id]").forEach(function (s) { observer.observe(s); });
+    }
+  </script>
+</body>
+</html>
